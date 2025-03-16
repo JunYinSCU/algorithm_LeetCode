@@ -80,9 +80,14 @@
  */
 
 // @lc code=start
+#include <string>
+#include <math.h>
+#include <climits>
+using namespace std;
 class Solution {
 public:
     string shortestBeautifulSubstring(string s, int k) {
+        //时间复杂度O()
         string res = "";
         int n = s.size();
         int left = 0;

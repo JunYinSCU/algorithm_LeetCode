@@ -5,7 +5,12 @@
  */
 
 // @lc code=start
+#include <iostream>
+#include <string>
+#include <unordered_map>
 #include <algorithm>
+#include <vector>
+using namespace std;
 class Solution {
 public:
 //因为原数组不是排好序的，所以不能用双指针法

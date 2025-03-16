@@ -5,6 +5,9 @@
  */
 
 // @lc code=start
+#include <vector>
+#include <climits>
+using namespace std;
 class Solution {
 public:
     //时间复杂度O(n)

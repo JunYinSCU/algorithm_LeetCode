@@ -5,6 +5,12 @@
  */
 
 // @lc code=start
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <algorithm>
+#include <vector>
+using namespace std;
 class Solution {
 public:
     int longestSubarray(vector<int>& nums) {
