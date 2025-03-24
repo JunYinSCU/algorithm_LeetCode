@@ -13,6 +13,7 @@
 using namespace std;
 class Solution {
 public:
+    //时间复杂度O(n)，空间复杂度O(1)
     double findMaxAverage(vector<int>& nums, int k) {
         // int n = nums.size();
         // double average = 0;

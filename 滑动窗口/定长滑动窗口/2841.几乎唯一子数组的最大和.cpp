@@ -14,6 +14,7 @@
 using namespace std;
 class Solution {
 public:
+    //时间复杂度O(n)，空间复杂度O(n)
     long long maxSum(vector<int>& nums, int m, int k) {
         long long sum = 0;
         long long left = 0;

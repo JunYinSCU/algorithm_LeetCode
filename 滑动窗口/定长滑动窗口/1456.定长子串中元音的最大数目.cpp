@@ -76,6 +76,7 @@
 using namespace std;
 class Solution {
 public:
+    //时间复杂度O(n)，空间复杂度O(1)
     int maxVowels(string s, int k) {
         int i = 0;
         int count = 0;

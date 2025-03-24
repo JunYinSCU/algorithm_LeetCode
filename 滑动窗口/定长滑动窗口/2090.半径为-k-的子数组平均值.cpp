@@ -13,6 +13,7 @@
 using namespace std;
 class Solution {
 public:
+    //时间复杂度O(n)，空间复杂度O(n)
     vector<int> getAverages(vector<int>& nums, int k) {
         long sum = 0;
         
