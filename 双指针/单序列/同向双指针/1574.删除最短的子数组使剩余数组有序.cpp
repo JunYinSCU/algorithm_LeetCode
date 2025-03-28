@@ -83,7 +83,6 @@ public:
         //找到左边最长递增序列末尾位置
         while(left < n-1 && arr[left] <= arr[left+1])
             left++;
-        if(left == n-1) return n-1;
         
         res = min(right,n-left-1);
 
@@ -96,7 +95,7 @@ public:
                 }
             }
         }
-        return res == INT_MAX ? 0 : res;
+        return res;
     }
 };
 // @lc code=end
