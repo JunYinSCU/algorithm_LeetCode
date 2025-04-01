@@ -72,6 +72,48 @@ class Solution {
 public:
     vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
         
+        unordered_map<int, vector<int>> mp;
+
+        for (int i = 0; i < nums.size(); ++i) {
+            mp[nums[i]].push_back(i);   //按照顺序插入
+        }
+
+        for(int i = 0;i < queries.size();i++){
+            if(mp.count(nums[queries[i]])){
+                vector<int>& indexs = mp[nums[queries[i]]];
+                if(indexs.size() == 1){
+                    queries[i] = -1;
+                }else{
+                    //sort(indexs.begin(), indexs.end());
+                    //不需要排序，因为在插入时是按照顺序插入的
+                    int pos = lowerBound(indexs, queries[i]);
+                    int left = pos == 0 ? indexs.size() - 1 : pos - 1;
+                    int right = pos == indexs.size() - 1 ? 0 : pos + 1;
+                    queries[i] = min(getDistance(indexs[pos], indexs[left], nums.size()), getDistance(indexs[pos], indexs[right], nums.size()));
+                }
+            }else{
+                queries[i] = -1;
+            }
+        }
+        return queries;
+    }
+
+    //循环数组中求两个下标之间的最小距离的函数
+    int getDistance(int a, int b, int n){
+        return min( (a - b + n) % n, (b - a + n) % n);
+    }
+
+    int lowerBound(vector<int>& nums, int target){
+        int left = 0, right = nums.size() - 1;
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(nums[mid] < target){
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+        return left;
     }
 };
 // @lc code=end
