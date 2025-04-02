@@ -66,23 +66,38 @@ public:
     unordered_map<int, vector<int>> pos;
 
     RangeFreqQuery(vector<int>& arr) {
-        for (int i = 0; i < arr.size(); i++) {
+        for (int i = 0; i < arr.size(); i++) {  //获取每个数字的下标，相同的数字存储于同一个vector中
             pos[arr[i]].push_back(i);
         }
     }
     
     int query(int left, int right, int value) {
-        auto it = pos.find(value);
-
-        if (it == pos.end()) {
+        int res = 0;
+        if(pos.count(value) == 0) { // 如果value不存在于数组中，直接返回0
             return 0;
         }
-        auto& a = it->second;
+        vector<int>& indexs = pos[value]; // 获取value在数组中的所有下标
+        
+        return 
+            lowerBound(indexs, right + 1) - 1 // 找到第一个 <= right的下标
+            -  
+            lowerBound(indexs, left)    // 找到第一个 >= left的下标
+            + 1;       //求距离加1
 
-        return ranges::upper_bound(a, right) - ranges::lower_bound(a, left);
     }
 
-    
+    int lowerBound(vector<int>& a, int target){
+        int left = 0, right = a.size() - 1; 
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(a[mid] < target) {
+                left = mid + 1; 
+            } else {
+                right = mid - 1; 
+            }
+        }
+        return left; // 返回第一个大于等于target的下标
+}    
 };
 
 /**
