@@ -84,7 +84,7 @@ class Solution {
                 }
             }
     
-            return left;
+            return left;    //因为左边是蓝色，返回指向蓝色的指针，即left
     
         }
     
