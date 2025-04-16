@@ -9,8 +9,8 @@
  * Medium (51.38%)
  * Likes:    3
  * Dislikes: 0
- * Total Accepted:    2.9K
- * Total Submissions: 5.7K
+ * ytal Accepted:    2.9K
+ * ytal Submissions: 5.7K
  * Testcase Example:  '"abab"\n' +
   '"baba"\n' +
   '[100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]\n' +
@@ -88,36 +88,24 @@
 class Solution {
 public:
     long long shiftDistance(string s, string t, vector<int>& nextCost, vector<int>& previousCost) {
-        vector<long long> next(27);
-        next[0] = 0;
-        for (int i = 0; i < 26; i++) {
-            next[i+1] = next[i] + nextCost[i];
+        const int SIGMA = 26;
+        long long next[SIGMA * 2 + 1]{}, pre[SIGMA * 2 + 1]{};
+        for (int i = 0; i < SIGMA * 2; i++) {
+            next[i + 1] = next[i] + nextCost[i % SIGMA];
+            pre[i + 1] = pre[i] + previousCost[i % SIGMA];
         }
-
-        vector<long long> pre(27);
-        pre[26] = 0;
-        for (int i = 25; i >= 0; i--) {
-            pre[i] = pre[i+1] + previousCost[i];
-        }
-
         long long ans = 0;
 
-        for (int i = 0; i < s.size(); i++) {
-            int from = s[i] - 'a';
-            int to = t[i] - 'a';
-            
-            if (from == to) continue;
+        for (int i = 0; i < s.length(); i++) {
+            int x = s[i] - 'a';
+            int y = t[i] - 'a';
     
-            // 向后走的代价（可能绕圈）
-            long long costForward = from < to ? next[to] - next[from] : next[26] - next[from] + next[to];
-    
-            // 向前走的代价（可能绕圈）
-            long long costBackward = from > to ? pre[to] - pre[from] : pre[0] - pre[from] + pre[to];
-    
+            long long costForward = next[y < x ? y + SIGMA : y] - next[x];
+            long long costBackward = pre[(x < y ? x + SIGMA : x) + 1] - pre[y + 1];
+
             ans += min(costForward, costBackward);
         }
     
-
         return ans;
     }
 
