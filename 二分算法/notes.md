@@ -19,5 +19,5 @@
    
 
 ### 求最大值
-1. 求最大：check(mid) == true 时更新 left = mid + 1，反之更新 right = mid - 1，最后返回 left。
+1. 求最大：check(mid) == true 时更新 left = mid + 1，反之更新 right = mid - 1，最后返回 right
 
