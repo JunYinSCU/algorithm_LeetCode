@@ -24,6 +24,25 @@
        * 子数组和为固定值 K 的个数：转换为pre[j+1] - k = pre[i]，利用哈希表进行判断
        * 子数组和为 K 的倍数：转为preSum[j] % k == preSum[i-1] % k，利用哈希表统计当前位置的前缀和模 k 的个数。
        * ```(pre[i] % k + k) % k``` 可以通过这种除法来确保余数始终为正数。
+   * 二维前缀和的前缀数组生成方法：详见[304题](https://leetcode.cn/problems/range-sum-query-2d-immutable/solutions/2667331/tu-jie-yi-zhang-tu-miao-dong-er-wei-qian-84qp/)
+   ```cpp
+    int pre[1001][1001];
+    for (int i = 0; i <= n; ++i) {
+        for (int j = 0; j <= m; ++j) {
+            pre[i+1][j+1] = pre[i+1][j] + pre[i][j+1] - pre[i][j] + a[i][j];
+        }
+    }
+   ```
+   <div align=center> <img src=https://raw.githubusercontent.com/JunYinSCU/PicBed/main/img/20250420173312.png width=80%/> </div>  
+
+    * 二维前缀和的查询方法：  
+  
+    ```cpp
+     int query(int x1, int y1, int x2, int y2) {
+          return pre[x2+1][y2+1] - pre[x1][y2+1] - pre[x2+1][y1] + pre[x1][y1];
+     }
+    ```
+    <div align=center> <img src=https://raw.githubusercontent.com/JunYinSCU/PicBed/main/img/20250420173345.png width=80%/> </div>
 
 3. 哈希表
     * 在使用哈希表求类似a+b=target,或者a-b=target的问题时，可以枚举，转换成单变量问题，也就是在遍历元素左边找是否有a=target-b或者b=target-a，一定要转为减法形式。
