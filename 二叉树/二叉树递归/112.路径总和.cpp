@@ -73,17 +73,51 @@
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
+        //如果根节点为空，无法计算，直接返回false
         if(root == NULL){
             return false;
         }
 
-
+        return sum(root,targetSum,0);
     }
 
-    int sum(TreeNode* node, targetSum){
+    /**
+    * @param(node) 当前节点
+    * @param(targetSum) 目标和
+    * @param(preSum) 当前节点之前的和
+     */
+    bool sum(TreeNode* node,int targetSum,int preSum){
+         
+        //如果当前节点为叶子节点，计算这条路经上的和，然后比较，返回结果
         if(node->left == NULL && node->right == NULL){
-            
+            if(preSum + node->val == targetSum){
+                return true;
+            }else{
+                return false;
+            }
         }
+
+        int nowSum = preSum + node->val;
+        bool left = false;
+        bool right = false;
+
+        //如果存在左子树，递归调用左子树结果
+        if(node->left != NULL){
+            left = sum(node->left,targetSum,nowSum);
+        }
+
+        //同理右子树
+        if(node->right != NULL){
+            right = sum(node->right,targetSum,nowSum);
+        }
+
+        //只要存在有一条路经满足条件，返回true
+        if(left || right){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 };
 // @lc code=end
