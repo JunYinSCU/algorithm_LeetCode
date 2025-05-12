@@ -112,11 +112,7 @@ public:
         }
 
         //只要存在有一条路经满足条件，返回true
-        if(left || right){
-            return true;
-        }else{
-            return false;
-        }
+        return left || right;
         
     }
 };
