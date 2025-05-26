@@ -69,6 +69,33 @@
 // @lc code=start
 class Solution {
 public:
+    // int maximumCostSubstring(string s, string chars, vector<int>& vals) {
+    //     if(s.empty()) return 0;
+
+    //     vector<int> cost(26,0); //初始化cost数组
+    //     for(int i = 0; i < 26; i++){
+    //         cost[i] = i + 1;
+    //     }
+    //     for(int i = 0; i < chars.size(); i++){       
+    //         cost[chars[i] - 'a'] = vals[i];
+    //     }
+
+    //     vector<int> prefix(s.size() + 1, 0);
+    //     for(int i = 0; i < s.size(); i++){  //计算前缀和
+    //         prefix[i+1] = prefix[i] + cost[s[i] - 'a'];
+    //     }
+
+    //     int maxCost = cost[s[0] - 'a']; //最大开销初始化为第一个字符的开销
+    //     int minPrefix = 0;  //前缀和最小值
+    //     for(int i = 1; i <= s.size(); i++){
+    //         maxCost = max(maxCost, prefix[i] - minPrefix);  //更新最大开销
+    //         minPrefix = min(minPrefix, prefix[i]); //更新前缀和最小值
+    //     }
+
+    //     return maxCost < 0 ? 0 : maxCost;   //由于空字符串的开销为0，如果最大开销小于0，则返回0
+    // }
+
+    //方法二：动态规划
     int maximumCostSubstring(string s, string chars, vector<int>& vals) {
         if(s.empty()) return 0;
 
@@ -80,16 +107,12 @@ public:
             cost[chars[i] - 'a'] = vals[i];
         }
 
-        vector<int> prefix(s.size() + 1, 0);
-        for(int i = 0; i < s.size(); i++){  //计算前缀和
-            prefix[i+1] = prefix[i] + cost[s[i] - 'a'];
-        }
-
+        vector<int> dp(s.size()+1);
+        dp[0] = 0;
         int maxCost = cost[s[0] - 'a']; //最大开销初始化为第一个字符的开销
-        int minPrefix = 0;  //前缀和最小值
         for(int i = 1; i <= s.size(); i++){
-            maxCost = max(maxCost, prefix[i] - minPrefix);  //更新最大开销
-            minPrefix = min(minPrefix, prefix[i]); //更新前缀和最小值
+            dp[i] = max(cost[s[i-1] - 'a'], dp[i-1] + cost[s[i-1] - 'a']);
+            maxCost = max(maxCost, dp[i]);  //更新最大开销
         }
 
         return maxCost < 0 ? 0 : maxCost;   //由于空字符串的开销为0，如果最大开销小于0，则返回0
