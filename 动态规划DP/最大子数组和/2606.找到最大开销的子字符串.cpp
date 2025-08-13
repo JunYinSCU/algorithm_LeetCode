@@ -69,14 +69,15 @@
 // @lc code=start
 class Solution {
 public:
+//方法一：前缀和
     // int maximumCostSubstring(string s, string chars, vector<int>& vals) {
     //     if(s.empty()) return 0;
 
-    //     vector<int> cost(26,0); //初始化cost数组
-    //     for(int i = 0; i < 26; i++){
+    //     vector<int> cost(26,0); //初始化cost数组，表示每个字符的开销
+    //     for(int i = 0; i < 26; i++){ //初始化为字母表中的位置
     //         cost[i] = i + 1;
     //     }
-    //     for(int i = 0; i < chars.size(); i++){       
+    //     for(int i = 0; i < chars.size(); i++){    //根据values更新cost数组   
     //         cost[chars[i] - 'a'] = vals[i];
     //     }
 
@@ -107,8 +108,9 @@ public:
             cost[chars[i] - 'a'] = vals[i];
         }
 
-        vector<int> dp(s.size()+1);
+        vector<int> dp(s.size()+1);//dp[i]表示以s[i-1]结尾的子字符串的最大开销
         dp[0] = 0;
+
         int maxCost = cost[s[0] - 'a']; //最大开销初始化为第一个字符的开销
         for(int i = 1; i <= s.size(); i++){
             dp[i] = max(cost[s[i-1] - 'a'], dp[i-1] + cost[s[i-1] - 'a']);
