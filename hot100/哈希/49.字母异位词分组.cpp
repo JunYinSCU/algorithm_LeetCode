@@ -72,6 +72,7 @@ public:
         vector<vector<string>> res;
         unordered_map<string,vector<string>> m;
         int n = strs.size();
+        
         for(int i = 0; i < n; i++){            
             m[getSortedString(strs[i])].push_back(strs[i]);
         }
