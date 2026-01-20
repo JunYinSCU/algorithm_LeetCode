@@ -89,6 +89,7 @@ public:
         vector<vector<int>> res;
         
         sort(nums.begin(),nums.end());
+        //排序后方便去重
 
         for(int i = 0; i < n - 2; i++){
             if (nums[i] > 0) break;

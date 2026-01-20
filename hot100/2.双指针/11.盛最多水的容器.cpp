@@ -54,6 +54,8 @@
 // @lc code=start
 class Solution {
 public:
+// 相向双指针
+
 // 容量 = len * height
     int maxArea(vector<int>& height) {
         int n = height.size();
