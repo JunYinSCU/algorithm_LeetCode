@@ -63,7 +63,7 @@ public:
         // 区间[i,j]的和为prefix[j+1] - prefix[i]
         for(int i = 0;i <= n; i++){
             if(m.count(prefix[i]-k)){
-                res += m[prefix[i]-k];
+                res += m[prefix[i]-k];//如果前方有多个可以构成和为k的子数组，需要全部加上
             }
             m[prefix[i]]++;
         }

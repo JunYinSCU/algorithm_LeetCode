@@ -56,36 +56,61 @@
 using namespace std;
 class Solution {
 public:
+    // //排序遍历法，时间复杂度O(Nlog N)
+    // int longestConsecutive(vector<int>& nums) {
+    //     if(nums.empty())
+    //         return 0;
+
+    //     //先排序
+    //     sort(nums.begin(),nums.end());
+    //      //sort函数的时间复杂度是O(KlogK)
+    //     int res = 1;
+    //     int current_len = 1;
+    //     int n = nums.size();
+
+    //     for(int i = 1; i < n; i++){
+    //         //遍历,如果当前数字和前一个数字相同,则跳过计数
+    //         if(nums[i] == nums[i-1])
+    //         {
+    //             continue;
+    //         }else if(nums[i] == nums[i-1] + 1){
+    //             //如果比前一个数大1,则可构成连续序列
+    //             current_len++;
+    //         }else{
+    //             //如果当前数不能和前一个数构成连续序列,则更新结果,重置当前长度
+    //             res = max(res,current_len);
+    //             current_len = 1;
+    //         }
+    //     }
+    //     //循环结束后，处理最后一个序列的长度
+    //     res = max(res,current_len);
+
+    //     return res;
+    // }
+
+
+    // 哈希表法，时间复杂度O(N)
     int longestConsecutive(vector<int>& nums) {
-        if(nums.empty())
-            return 0;
+        unordered_set<int> st(nums.begin(), nums.end()); // 把 nums 转成哈希集合，天然去重
+        int ans = 0;
 
-        //先排序
-        sort(nums.begin(),nums.end());
+        for (int x : st) { // 遍历哈希集合
 
-        int res = 1;
-        int current_len = 1;
-        int n = nums.size();
-
-        for(int i = 1; i < n; i++){
-            //遍历,如果当前数字和前一个数字相同,则跳过计数
-            if(nums[i] == nums[i-1])
-            {
+            if (st.contains(x - 1)) { // 如果 x 不是序列的起点，直接跳过
                 continue;
-            }else if(nums[i] == nums[i-1] + 1){
-                //如果比前一个数大1,则可构成连续序列
-                current_len++;
-            }else{
-                //如果当前数不能和前一个数构成连续序列,则更新结果,重置当前长度
-                res = max(res,current_len);
-                current_len = 1;
             }
-        }
-        //循环结束后，处理最后一个序列的长度
-        res = max(res,current_len);
 
-        return res;
+            // x 是序列的起点
+            int y = x + 1;
+            while (st.contains(y)) { // 不断查找下一个数是否在哈希集合中
+                y++;
+            }
+            // 循环结束后，y-1 是最后一个在哈希集合中的数
+            ans = max(ans, y - x); // 从 x 到 y-1 一共 y-x 个数
+        }
+        return ans;
     }
+
 };
 // @lc code=end
 
